@@ -582,6 +582,10 @@ async def on_message(message):
     # Réveiller le bot sur n'importe quel message
     await message.channel.send('Bot réveille par message!')
 
+@app.route('/')
+def home():
+    return "Welcome to the bot sio!", 200
+
 @app.route('/ping', methods=['GET'])
 def ping():
     return 'Bot online!', 200
