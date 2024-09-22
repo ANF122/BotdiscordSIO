@@ -571,5 +571,5 @@ async def on_ready():
     await client.change_presence(activity=discord.Game(name=" HELP SIO1"))
 
 TOKEN = os.getenv('DISCORD_TOKEN')
-bot.run(TOKEN)
+client.run(TOKEN)
 
