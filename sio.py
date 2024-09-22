@@ -22,6 +22,8 @@ client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
 # Créer une instance de Flask
 app = Flask(__name__)   
+USERNAME = os.getenv('BOT_USERNAME')
+PASSWORD = os.getenv('BOT_PASSWORD')
 
 # Charger les variables d'environnement
 load_dotenv()
@@ -576,10 +578,13 @@ async def on_ready():
     await client.change_presence(activity=discord.Game(name=" HELP SIO1"))
 
 
-@app.route('/')
-def home():
-    return "Welcome to the bot sio!", 200
 
+@app.route('/protected-route', methods=['HEAD'])
+def protected_route():
+    auth = request.authorization
+    if not auth or not (auth.username == USERNAME and auth.password == PASSWORD):
+        abort(401)  # Unauthorized
+    return "Welcome to the protected sio route!", 200
 
 # Lancer le serveur Flask dans un thread
 def run_flask():
