@@ -581,7 +581,6 @@ async def on_ready():
 def home():
     return "Welcome to the bot sio!", 200
 
-
 @app.route('/protected-route', methods=['GET'])
 def protected_route():
     auth = request.authorization
@@ -596,5 +595,4 @@ def run_flask():
 if __name__ == '__main__':
     # Démarrer le serveur Flask dans un thread
     threading.Thread(target=run_flask).start()
-    # Démarrer le bot Discord
     client.run(os.getenv('DISCORD_TOKEN'))
