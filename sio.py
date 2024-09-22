@@ -574,16 +574,23 @@ async def on_ready():
     print(f'{client.user} est connecté et prêt à aider!')
     await client.change_presence(activity=discord.Game(name=" HELP SIO1"))
 
-@app.route('/')
-def home():
-    return "Bot Discord en cours d'exécution!"
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+    # Réveiller le bot sur n'importe quel message
+    await message.channel.send('Bot réveille par message!')
+
+@app.route('/ping', methods=['GET'])
+def ping():
+    return 'Bot online!', 200
 
 # Lancer le serveur Flask dans un thread
 def run_flask():
     app.run(host='0.0.0.0', port=int(os.getenv('PORT', 8080)))
 
 if __name__ == '__main__':
-    Thread(target=run_flask).start()  # Lancer Flask
-TOKEN = os.getenv('DISCORD_TOKEN')
-client.run(TOKEN)
-
+    # Démarrer le serveur Flask dans un thread
+    threading.Thread(target=run_flask).start()
+    # Démarrer le bot Discord
+    client.run(os.getenv('DISCORD_TOKEN'))
