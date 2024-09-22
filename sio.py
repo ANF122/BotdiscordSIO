@@ -15,12 +15,13 @@ import torch
 import os 
 from flask import Flask
 from threading import Thread
+import threading
 intents = discord.Intents.default()
 intents.message_content = True
 client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
 # Créer une instance de Flask
-app = Flask(__name__)
+app = Flask(__name__)   
 
 # Charger les variables d'environnement
 load_dotenv()
