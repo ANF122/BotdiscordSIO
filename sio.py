@@ -575,12 +575,6 @@ async def on_ready():
     print(f'{client.user} est connecté et prêt à aider!')
     await client.change_presence(activity=discord.Game(name=" HELP SIO1"))
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-    # Réveiller le bot sur n'importe quel message
-    await message.channel.send('Bot réveille par message!')
 
 @app.route('/')
 def home():
