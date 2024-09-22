@@ -580,9 +580,6 @@ async def on_ready():
 def home():
     return "Welcome to the bot sio!", 200
 
-@app.route('/ping', methods=['GET'])
-def ping():
-    return 'Bot online!', 200
 
 # Lancer le serveur Flask dans un thread
 def run_flask():
