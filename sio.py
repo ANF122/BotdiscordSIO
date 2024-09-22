@@ -12,7 +12,7 @@ import time
 import ast
 from transformers import GPTNeoForCausalLM, AutoTokenizer
 import torch
-
+import os 
 
 intents = discord.Intents.default()
 intents.message_content = True
