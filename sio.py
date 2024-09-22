@@ -577,9 +577,12 @@ async def on_ready():
     print(f'{client.user} est connecté et prêt à aider!')
     await client.change_presence(activity=discord.Game(name=" HELP SIO1"))
 
+@app.route('/')
+def home():
+    return "Welcome to the bot sio!", 200
 
 
-@app.route('/protected-route', methods=['HEAD'])
+@app.route('/protected-route', methods=['GET'])
 def protected_route():
     auth = request.authorization
     if not auth or not (auth.username == USERNAME and auth.password == PASSWORD):
