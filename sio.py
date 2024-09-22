@@ -13,11 +13,15 @@ import ast
 from transformers import GPTNeoForCausalLM, AutoTokenizer
 import torch
 import os 
-
+from flask import Flask
+from threading import Thread
 intents = discord.Intents.default()
 intents.message_content = True
 client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
+# Créer une instance de Flask
+app = Flask(__name__)
+
 # Charger les variables d'environnement
 load_dotenv()
 description = "Je suis un bot dédié à aider la classe de SIO1 en programmation."
@@ -570,6 +574,16 @@ async def on_ready():
     print(f'{client.user} est connecté et prêt à aider!')
     await client.change_presence(activity=discord.Game(name=" HELP SIO1"))
 
+@app.route('/')
+def home():
+    return "Bot Discord en cours d'exécution!"
+
+# Lancer le serveur Flask dans un thread
+def run_flask():
+    app.run(host='0.0.0.0', port=int(os.getenv('PORT', 8080)))
+
+if __name__ == '__main__':
+    Thread(target=run_flask).start()  # Lancer Flask
 TOKEN = os.getenv('DISCORD_TOKEN')
 client.run(TOKEN)
 
